@@ -1,0 +1,150 @@
+CREATE DATABASE Butterful_ltd;
+USE Butterful_ltd;
+CREATE TABLE food_delivery (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    customer_name VARCHAR(50),
+    restaurant_id INT,
+    restaurant_name VARCHAR(100),
+    city VARCHAR(50),
+    order_date DATE,
+    food_item VARCHAR(100),
+    category VARCHAR(50),
+    quantity INT,
+    unit_price DECIMAL(10,2),
+    discount_percent DECIMAL(5,2),
+    total_amount DECIMAL(10,2),
+    payment_method VARCHAR(30),
+    delivery_status VARCHAR(30),
+    delivery_time_mins INT,
+    rating DECIMAL(2,1)
+);
+select * from food_delivery;
+
+
+Food Delivery SQL Final Project – Questions Only
+
+1.  Display all food delivery records.
+2.  Display the customer name, city and restaurant name.
+3.  Display all orders from Chennai.
+4.  Display orders where the total amount is greater than 500.
+5.  Display orders where the quantity is greater than 2.
+6.  Display delivered orders from Chennai.
+7.  Display orders paid using UPI.
+8.  Display orders from Chennai or Vellore.
+9.  Display orders with total amount between 500 and 1000.
+10. Display orders where the rating is 5.
+11. Display orders from highest total amount to lowest.
+12. Display orders from lowest total amount to highest.
+13. Display all unique cities.
+14. Display all unique payment methods.
+15. Display the first 10 orders.
+16. Find the total number of orders.
+17. Find the total sales amount.
+18. Find the average order amount.
+19. Find the highest order amount.
+20. Find the lowest order amount.
+21. Find the number of orders in each city.
+22. Find the total sales for each city.
+23. Find the number of orders for each restaurant.
+24. Find the total sales for each restaurant.
+25. Find the average rating for each restaurant.
+26. Display cities having more than 50 orders.
+27. Display restaurants having total sales greater than 10,000.
+28. Categorize orders based on total amount as High, Medium, or Low.
+29. Find restaurants with an average rating greater than 4.
+30. Display the top 5 restaurants based on total sales.
+
+Answer Only :-
+
+1. select * from food_delivery;
+2. SELECT customer_name, city, restaurant_name
+   FROM food_delivery;
+3. SELECT *
+   FROM food_delivery
+   WHERE city = "Chennai";
+4. SELECT *
+   FROM food_delivery
+   WHERE total_amount > 500;
+5. SELECT *
+   FROM food_delivery
+   WHERE quantity > 2;
+6. SELECT *
+   FROM food_delivery
+   WHERE city = "Chennai"
+   AND delivery_status = "Delivered";
+7. SELECT *
+   FROM food_delivery
+   WHERE payment_method = "UPI";
+8. SELECT *
+   FROM food_delivery
+   WHERE city = "Chennai"
+   OR city = "Vellore";
+9. SELECT *
+   FROM food_delivery
+   WHERE total_amount BETWEEN 500 AND 1000;
+10. SELECT *
+    FROM food_delivery
+    WHERE rating = 5;
+11. SELECT *
+    FROM food_delivery
+    ORDER BY total_amount DESC;
+12. SELECT *
+    FROM food_delivery
+    ORDER BY total_amount ASC;
+13. SELECT DISTINCT city
+    FROM food_delivery;
+14. SELECT DISTINCT payment_method
+    FROM food_delivery;
+15. SELECT *
+    FROM food_delivery
+    LIMIT 10;
+16. SELECT COUNT(*) AS total_orders
+    FROM food_delivery;
+17. SELECT SUM(total_amount) AS total_sales
+    FROM food_delivery;
+18. SELECT AVG(total_amount) AS average_amount
+    FROM food_delivery;
+19. SELECT MAX(total_amount) AS highest_amount
+    FROM food_delivery;
+20. SELECT MIN(total_amount) AS lowest_amount
+    FROM food_delivery;
+21. SELECT city, COUNT(*) AS total_orders
+    FROM food_delivery
+    GROUP BY city;
+22. SELECT city, SUM(total_amount) AS total_sales
+    FROM food_delivery
+    GROUP BY city;
+23. SELECT restaurant_name, COUNT(*) AS total_orders
+    FROM food_delivery
+    GROUP BY restaurant_name;
+24. SELECT restaurant_name, SUM(total_amount) AS total_sales
+    FROM food_delivery
+    GROUP BY restaurant_name;
+25. SELECT restaurant_name, AVG(rating) AS average_rating
+    FROM food_delivery
+    GROUP BY restaurant_name;
+26. SELECT city, COUNT(*) AS total_orders
+    FROM food_delivery
+    GROUP BY city
+    HAVING COUNT(*) > 50;
+27. SELECT restaurant_name, SUM(total_amount) AS total_sales
+    FROM food_delivery
+    GROUP BY restaurant_name
+    HAVING SUM(total_amount) > 10000;
+28. SELECT  total_amount,
+    CASE
+    WHEN total_amount >= 1000 THEN 'High'
+    WHEN total_amount >= 500 THEN 'Medium'
+    ELSE 'Low'
+    END AS order_category
+    FROM food_delivery;
+29. SELECT restaurant_name, AVG(rating) AS average_rating
+    FROM food_delivery
+    GROUP BY restaurant_name
+    HAVING AVG(rating) > 4;
+30. SELECT restaurant_name, SUM(total_amount) AS total_sales
+    FROM food_delivery
+    GROUP BY restaurant_name
+    ORDER BY total_sales DESC
+    LIMIT 5;
